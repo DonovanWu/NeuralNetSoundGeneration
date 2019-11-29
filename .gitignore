@@ -102,3 +102,11 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# system generated files
+.DS_Store
+
+# vim generated files
+*~
+*.swp
+*.swo

@@ -10,6 +10,10 @@ From the description of the video, it sounds like the author converted the raw a
 2. Write the actual neural network, have actual control of the hyperparameters, and potentially find a better model that suits the task
   * Note: the neural network shall still take raw audio data as input and be trained without other assistants, which is to say, it is not going to be a text-to-speech network, so the quality of the audio generated is probably going to be crappier than those networks, but I hope to achieve better results than what the video demonstrated
 
+## Prerequisites
+
+tensorflow==1.14.0
+
 ## Usages
 
 Character-based LSTM:
@@ -42,3 +46,7 @@ This model inputs a segment of frequency band and predicts the next frequency ba
 Sadly I do not know how to properly "sample" from this network, because the output layer is not a distribution that represents categorical data.
 
 However, the network can still learn from music audios fine (usually) and generate some sound that doesn't loop too quickly. It almost always just output silence for speech audios.
+
+### LSTM Autoencoder
+
+In development...

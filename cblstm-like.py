@@ -74,6 +74,10 @@ gain = 2048         # to make loss value not that crazy (to prevent gradient exp
 frame_width = 20    # this is in milliseconds
 n_per_group = 2
 step = 1
+latent_layers = {'lstm1': 512, 'lstm2': 512}
+drop_rate = 0.1
+batch_size = 64
+epochs = 200
 
 # load data and process parameters
 rate, data = wavfile.read(sample)
@@ -108,17 +112,16 @@ y = np.array(y)
 # build model
 n_feat = len(f[f_filter])
 model = Sequential([
-    LSTM(512, return_sequences=True, input_shape=(n_per_group, n_feat)),
-    Dropout(0.1),
-    LSTM(512),
-    Dropout(0.1),
+    LSTM(latent_layers['lstm1'], return_sequences=True, input_shape=(n_per_group, n_feat)),
+    Dropout(drop_rate),
+    LSTM(latent_layers['lstm2']),
+    Dropout(drop_rate),
     Dense(n_feat)
 ])
 model.compile(loss='mse', optimizer='adam')
 model.summary()
 
-print('Training LSTM model (stateless)...')
-history = model.fit(X, y, batch_size=64, epochs=200, shuffle=True,
+history = model.fit(X, y, batch_size=batch_size, epochs=epochs, shuffle=True,
                     callbacks=[LambdaCallback(on_epoch_end=sample_callback)])
 model.save('model.h5')
 print('Saved to model.h5')

@@ -110,3 +110,7 @@ venv.bak/
 *~
 *.swp
 *.swo
+
+# model and data files
+*.h5
+*.wav

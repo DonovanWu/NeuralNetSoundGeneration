@@ -33,6 +33,28 @@ optional arguments:
   --sample_every N_EPOCHS
 ```
 
+LSTM autoencoder:
+
+```
+python3 lstm-autoencoder.py [-h] [--n_samples N_SAMPLES]
+                            [--sample_duration SECONDS] [--n_average N]
+                            operation sample
+
+positional arguments:
+  operation             'train' or 'test'
+  sample
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --n_samples N_SAMPLES
+                        How many samples to generate when sampling from the
+                        model.
+  --sample_duration SECONDS
+  --n_average N         [Experimental] For each sample, take average value of
+                        N encodings. Default to 1, effectively disabling this
+                        feature.
+```
+
 ## Dev Notes
 
 I was surpised by how powerful the open-source machine learning libraries are nowadays, as long as you have the right know-how. I was able to write a character-based text generation network and convert it to suit this project's question within a bit more than 100 lines of code.
@@ -49,4 +71,8 @@ However, the network can still learn from music audios fine (usually) and genera
 
 ### LSTM Autoencoder
 
-In development...
+Again, this model takes segments of frequency band as input.
+
+The autoencoder is kind of a failure as for now... Acutally it works as expected, as an autoencoder. The network outputs an "impression" of what it learned sounds like, but when I take the average of the encodings of two samples, it basically outputs the "superposition" of the two samples, so it's nothing different from what I can do by using an audio editing software. I tried to shrink the bottleneck, but the result is the same.
+
+I also tried to use a different input from training time during prediction time, but the network then pretty much just outputs noise.
